@@ -1,0 +1,23 @@
+{
+  "name": "@wokeyi/tools",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "repository": "https://github.com/wokeyi/fe-tools",
+  "files": [
+    "src"
+  ],
+  "bin": {
+    "fe": "./src/index.js"
+  },
+  "scripts": {
+    "build": "rollup --config rollup.config.js --watch"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "commander": "^4.0.1",
+    "compressing": "^1.5.0",
+    "ora": "^4.0.3",
+    "unzipper": "^0.10.5"
+  }
+}
