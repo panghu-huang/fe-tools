@@ -4,9 +4,9 @@ const path = require('path')
 const chalk = require('chalk')
 const compressing = require('compressing')
 
-const UNZIP_DIR_NAME = 'react-ts-template-master'
+const TEMPLATE_NAME = 'react-ts-template'
 
-exports.download = function download(projectName, parentDir) {
+exports.download = function download(projectName, branch, parentDir) {
   return new Promise((resolve, reject) => {
     const zipFilename = path.join(parentDir, 'temp.zip')
     const stream = fs.createWriteStream(zipFilename)
@@ -14,7 +14,7 @@ exports.download = function download(projectName, parentDir) {
     https.get({
       protocol: 'https:',
       host: 'codeload.github.com',
-      path: '/wokeyi/react-ts-template/zip/master',
+      path: `/wokeyi/${TEMPLATE_NAME}/zip/${branch}`,
     }, res => {
 
       res.pipe(stream)
@@ -27,12 +27,13 @@ exports.download = function download(projectName, parentDir) {
           await unzip(zipFilename, projectDir)
           // 删除 temp.zip 文件
           fs.unlinkSync(zipFilename)
+          const unzipDir = `${TEMPLATE_NAME}-${branch}`
           copyDir(
-            path.join(projectDir, UNZIP_DIR_NAME),
+            path.join(projectDir, unzipDir),
             projectDir,
           )
           deleteDir(
-            path.join(projectDir, UNZIP_DIR_NAME)
+            path.join(projectDir, unzipDir)
           )
           modifyPackageJSON(
             path.join(projectDir, 'package.json'),

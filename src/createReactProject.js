@@ -5,7 +5,7 @@ const createSpinner = require('ora')
 const childProcess = require('child_process')
 const { download } = require('./download')
 
-async function createReactProject(projectName) {
+async function createReactProject(projectName, branch) {
   const baseDir = process.cwd()
   const projectPath = path.resolve(baseDir, projectName)
   if (fs.existsSync(projectPath)) {
@@ -18,7 +18,7 @@ async function createReactProject(projectName) {
 
   spinner.start()
   try {
-    await download(projectName, baseDir)
+    await download(projectName, branch, baseDir)
     spinner.stop()
     await installPackages(projectPath)
     spinner.succeed('下载成功!')
